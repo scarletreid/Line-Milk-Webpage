@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Carousel, Header, ProductCard } from '../components'
+import { Carousel, ProductCard } from '../components'
 import { banners, categories, products } from '../data'
 
 export default function Catalog() {
@@ -8,12 +8,11 @@ export default function Catalog() {
 
   return (
     <div className="mx-auto min-h-dvh max-w-md bg-cream pb-[105px]">
-      <Header title="岳佳商品型錄" />
       <Carousel images={banners} className="aspect-[390/166]" />
 
       <h1 className="px-5 pt-5 text-2xl leading-[22px] font-bold text-brand">商品型錄</h1>
 
-      <nav className="no-scrollbar sticky top-14 z-10 mt-2 flex gap-1.5 overflow-x-auto border-b border-line bg-cream pt-3 pb-3 pl-5">
+      <nav className="no-scrollbar sticky top-0 z-10 mt-2 flex gap-1.5 overflow-x-auto border-b border-line bg-cream pt-3 pb-3 pl-5">
         {categories.map((c) => (
           <button
             key={c}

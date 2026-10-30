@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Header } from '../components'
 import { deliveryAreas, faqs, holidayNotes } from '../data'
 
 const icons = '/images/delivery'
@@ -27,8 +26,6 @@ export default function Delivery() {
 
   return (
     <div className="mx-auto min-h-dvh max-w-md bg-cream pb-24">
-      <Header title="配送資訊" />
-
       <div className="flex items-center gap-2.5 bg-yellow-300 px-5 py-3 text-sm leading-[1.7] font-bold text-stone-700">
         {/* Delivery truck with a pause badge: "no delivery on these days". */}
         <svg viewBox="0 0 32 32" className="size-8 shrink-0" aria-hidden="true">
