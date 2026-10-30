@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Noto Sans TC", ui-sans-serif, system-ui, sans-serif;
+  --color-brand: #7e4533;
+  --color-cream: #faf7f0;
+  --color-line: #e7ded2;
+  --shadow-card: 0 1px 2px rgb(74 52 40 / 0.05), 0 4px 14px rgb(74 52 40 / 0.06);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  body {
+    min-width: 350px;
+  }
+}
