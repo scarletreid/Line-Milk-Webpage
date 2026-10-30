@@ -29,7 +29,7 @@ export default function Catalog() {
 
       <p className="px-5 pt-5 text-right text-[15px] leading-[22px] text-gray-500">{list.length} 項</p>
 
-      <div className="mt-3.5 grid grid-cols-2 gap-2 px-5">
+      <div className="mt-3.5 grid grid-cols-2 gap-3 px-5">
         {list.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}

@@ -5,6 +5,9 @@
   --color-brand: #7e4533;
   --color-cream: #faf7f0;
   --color-line: #e7ded2;
+  /* 櫻島家 brand colours, from sakurazimaya.com */
+  --color-sakura: #6f4c39;
+  --color-sakura-cream: #f5ede8;
   --shadow-card: 0 1px 2px rgb(74 52 40 / 0.05), 0 4px 14px rgb(74 52 40 / 0.06);
 }
 
@@ -16,6 +19,11 @@
 }
 
 @layer base {
+  /* Reserve the scrollbar's space so short pages (e.g. a 2-item category) don't shift wider. */
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
     min-width: 350px;
   }

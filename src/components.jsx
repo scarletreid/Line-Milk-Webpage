@@ -2,16 +2,17 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 // Shows a gray box with the file name until the real image is added.
-export function Img({ src, alt = '', className = '' }) {
+// fit="contain" shows the whole photo instead of cropping it to fill the box.
+export function Img({ src, alt = '', className = '', fit = 'cover' }) {
   const [failed, setFailed] = useState(false)
   if (failed) {
     return (
-      <div className={`grid place-items-center bg-stone-200 p-2 text-center text-xs text-stone-400 ${className}`}>
+      <div className={`grid place-items-center overflow-hidden bg-stone-200 p-2 text-center text-xs break-all text-stone-400 ${className}`}>
         {src.split('/').pop()}
       </div>
     )
   }
-  return <img src={src} alt={alt} onError={() => setFailed(true)} className={`object-cover ${className}`} />
+  return <img src={src} alt={alt} onError={() => setFailed(true)} className={`${fit === 'contain' ? 'object-contain' : 'object-cover'} ${className}`} />
 }
 
 export function Header({ title, back = false }) {
@@ -62,7 +63,7 @@ export function Carousel({ images, className = 'aspect-[16/9]', interval = 4000,
       >
         {images.map((img) => (
           <div key={img.src} className={`w-full shrink-0 snap-center overflow-hidden ${className}`}>
-            <Img src={img.src} className={`size-full ${img.className ?? ''}`} />
+            <Img src={img.src} fit={img.fit} className={`size-full ${img.className ?? ''}`} />
           </div>
         ))}
       </div>
@@ -96,15 +97,19 @@ export function Carousel({ images, className = 'aspect-[16/9]', interval = 4000,
   )
 }
 
+export const storageStyles = { 冷藏: 'bg-sky-50 text-sky-800', 冷凍: 'bg-indigo-50 text-indigo-800' }
+
 export function Tags({ product, className = '' }) {
   return (
     <div className={`flex justify-between gap-2 ${className}`}>
       {product.brand ? (
-        <span className="rounded-full border border-stone-800 bg-white px-1.5 py-1 text-sm leading-normal text-stone-800">{product.brand}</span>
+        <span className="rounded-full border border-sakura bg-sakura-cream px-1.5 py-1 text-sm leading-normal text-sakura">{product.brand}</span>
       ) : (
         <span />
       )}
-      {product.cold && <span className="rounded-full bg-sky-50 px-2 py-1 text-[13px] leading-normal text-sky-800">冷藏</span>}
+      {product.storage && (
+        <span className={`rounded-full px-2 py-1 text-[13px] leading-normal ${storageStyles[product.storage]}`}>{product.storage}</span>
+      )}
     </div>
   )
 }
@@ -128,9 +133,17 @@ export function ProductCard({ product, className = '' }) {
       to={`/product/${product.id}`}
       className={`overflow-hidden rounded-2xl bg-white shadow-card transition active:scale-95 ${className}`}
     >
-      <div className="relative">
-        <Img src={product.image} alt={product.name} className="h-28 w-full" />
+      <div className="relative border-b border-line">
+        <Img
+          src={product.image}
+          alt={product.name}
+          fit="contain"
+          className={`h-32 w-full p-2 ${product.soldOut ? 'opacity-50 grayscale' : ''}`}
+        />
         <Tags product={product} className="absolute inset-x-[9px] top-[9px]" />
+        {product.soldOut && (
+          <span className="absolute bottom-2 left-[9px] rounded-full bg-stone-800/80 px-2 py-0.5 text-[13px] leading-normal text-white">備貨中</span>
+        )}
       </div>
       <div className="min-h-[85px] px-3 py-2 text-[15px] leading-[22px]">
         <p className="font-bold text-stone-800">
